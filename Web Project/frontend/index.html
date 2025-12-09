@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tennis Legends</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Tennis Legends</h1>
+    <p>Discover the greatest tennis players in history</p>
+  </header>
+
+  <main id="app">
+
+    <section class="player-section">
+      <div class="player-card">
+
+        <img :src="player.img" class="player-img" alt="Player">
+
+        <h2 v-if="showName">{{ player.name }}</h2>
+        <p v-else>{{ player.desc }}</p>
+
+        <div class="buttons">
+          <button @click="toggleView">
+            {{ showName ? "Show description" : "Show name" }}
+          </button>
+        </div>
+
+        <div class="nav">
+          <button @click="prevPlayer">Previous</button>
+          <button @click="nextPlayer">Next</button>
+        </div>
+
+        <p class="index-info">{{ index + 1 }} / {{ total }}</p>
+
+      </div>
+    </section>
+
+    <section class="team-section">
+      <h2>Team</h2>
+      <div class="team-card">
+        <img src="data/images/Clément.jpg" class="creator-img" />
+        <div class="team-info">
+          <h3>Clément Silva Le Barz</h3>
+          <p>Computer engineering student at EFREI, passionate about tennis.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Tennis Legends | Clément Silva Le Barz</p>
+  </footer>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          player: {},
+          index: 0,
+          total: 0,
+          showName: true,
+        };
+      },
+      methods: {
+        async fetchItem(route = "/item") {
+          const response = await fetch("http://localhost:3000" + route);
+          const data = await response.json();
+          this.player = data.item;
+          this.index = data.index;
+          this.total = data.total;
+        },
+        toggleView() {
+          this.showName = !this.showName;
+        },
+        nextPlayer() {
+          this.fetchItem("/item/next");
+          this.showName = true;
+        },
+        prevPlayer() {
+          this.fetchItem("/item/prev");
+          this.showName = true;
+        },
+      },
+      mounted() {
+        this.fetchItem();
+      },
+    }).mount("#app");
+  </script>
+
+</body>
+</html>
