@@ -109,9 +109,9 @@ Simply open:
 frontend/index.html
 ```
 
-➡ Double-click the file  
-➡ The website opens directly in your browser  
-➡ The frontend automatically communicates with the backend using `fetch()` requests
+--> Double-click the file  
+--> The website opens directly in your browser  
+--> The frontend automatically communicates with the backend using `fetch()` requests
 
 ---
 
@@ -148,7 +148,7 @@ npm install
 
 **Clément Silva Le Barz**  
 Computer Engineering Student at EFREI Paris  
-Tennis enthusiast 🎾  
+Tennis enthusiast  
 
 ---
 
